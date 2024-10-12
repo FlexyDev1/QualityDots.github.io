@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Text Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
+
+        #editor {
+            width: 80%;
+            height: 80vh;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: white;
+            overflow-y: auto;
+            font-size: 16px;
+        }
+
+        #toolbar {
+            display: flex;
+            justify-content: center;
+            margin: 10px;
+        }
+
+        button {
+            margin: 0 5px;
+            padding: 10px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #saveBtn {
+            background-color: #28a745;
+        }
+
+        #saveBtn:hover {
+            background-color: #218838;
+        }
+
+        #loadBtn {
+            background-color: #17a2b8;
+        }
+
+        #loadBtn:hover {
+            background-color: #138496;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Simple Text Editor</h1>
+    <div id="toolbar">
+        <button onclick="formatText('bold')">Bold</button>
+        <button onclick="formatText('italic')">Italic</button>
+        <button onclick="formatText('underline')">Underline</button>
+        <button id="saveBtn" onclick="saveText()">Save</button>
+        <button id="loadBtn" onclick="loadText()">Load</button>
+    </div>
+    <div id="editor" contenteditable="true"></div>
+
+    <script>
+        function formatText(command) {
+            document.execCommand(command, false, null);
+        }
+
+        function saveText() {
+            const content = document.getElementById('editor').innerHTML;
+            localStorage.setItem('textEditorContent', content);
+            alert('Document saved!');
+        }
+
+        function loadText() {
+            const savedContent = localStorage.getItem('textEditorContent');
+            if (savedContent) {
+                document.getElementById('editor').innerHTML = savedContent;
+            } else {
+                alert('No saved document found!');
+            }
+        }
+    </script>
+
+</body>
+</html>
